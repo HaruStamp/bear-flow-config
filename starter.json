@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "rev": 2,
+  "rev": 3,
   "title": "EasyBear Starter — Core Test",
   "fields": [
     {
@@ -65,7 +65,7 @@
       "prompt": "{prompt}, chibi 2D style, pastel colors, white background",
       "model": "{imgModel}",
       "aspectRatio": "9:16",
-      "refFrom": [
+      "refs": [
         "refs",
         "uploads"
       ]
@@ -77,7 +77,7 @@
       "model": "{vidModel}",
       "aspectRatio": "9:16",
       "durationSeconds": "{dur}",
-      "fromImage": "img"
+      "startFrame": "img"
     }
   ],
   "output": {
