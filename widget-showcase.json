@@ -1,0 +1,30 @@
+{
+  "schemaVersion": 1,
+  "rev": 1,
+  "title": "Widget Showcase",
+  "fields": [
+    { "id": "prompt", "type": "textarea", "label": "Prompt", "default": "หมีแว่นน่ารัก" },
+    { "id": "name", "type": "text", "label": "ชื่อ (text)" },
+    { "id": "mode", "type": "select", "label": "Mode (toggle)", "widget": "toggle", "options": ["A", "B"], "default": "A" },
+    { "id": "aspect", "type": "select", "label": "สัดส่วน (segmented)", "widget": "segmented", "options": ["16:9", "1:1", "9:16"], "default": "9:16" },
+    { "id": "preset", "type": "select", "label": "พรีเซ็ต (grid)", "widget": "grid", "options": ["UGC", "การ์ตูน 3D", "ละคร", "โฆษณา"], "default": "UGC" },
+    { "id": "model", "type": "select", "label": "โมเดล (dropdown)", "options": ["🍌 Nano Banana Pro", "Imagen 4"], "default": "🍌 Nano Banana Pro" },
+    { "id": "count", "type": "number", "label": "จำนวน (stepper)", "widget": "stepper", "min": 1, "max": 9, "step": 1, "default": "2" },
+    { "id": "seed", "type": "number", "label": "Seed (number)", "default": "0" },
+    { "id": "strength", "type": "slider", "label": "ความเข้ม (slider)", "min": 0, "max": 100, "step": 5, "default": "50" },
+    { "id": "watermark", "type": "switch", "label": "ใส่ลายน้ำ (switch)", "default": "" },
+    { "id": "genres", "type": "chips", "label": "แนว (chips)", "options": ["ดราม่า", "ตลก", "สยอง", "รัก"] },
+    { "id": "blocklist", "type": "taginput", "label": "คำต้องห้าม (taginput)" },
+    {
+      "id": "adv", "type": "group", "label": "ตั้งค่าขั้นสูง (group · พับได้)", "collapsible": true,
+      "fields": [
+        { "id": "delay", "type": "number", "label": "หน่วง (stepper)", "widget": "stepper", "min": 0, "max": 60, "step": 5, "default": "10" },
+        { "id": "retry", "type": "switch", "label": "ลองใหม่อัตโนมัติ", "default": "true" }
+      ]
+    },
+    { "id": "refs", "type": "asset-pick", "label": "ภาพอ้างอิง (+ button)", "multiple": true }
+  ],
+  "steps": [
+    { "type": "image", "id": "image", "model": "{model}", "aspectRatio": "{aspect}", "prompt": "{prompt}", "refs": ["refs"] }
+  ]
+}
