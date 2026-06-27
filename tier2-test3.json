@@ -32,5 +32,5 @@
       ]
     }
   ],
-  "policy": { "maxParallel": 2 }
+  "policy": { "maxParallel": 2, "staggerMs": 5000 }
 }
