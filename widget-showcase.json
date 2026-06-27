@@ -1,8 +1,22 @@
 {
   "schemaVersion": 1,
-  "rev": 1,
+  "rev": 2,
   "title": "Widget Showcase",
   "fields": [
+    { "id": "n1", "type": "note", "label": "โชว์ widget ทุกตัวในคลัง — กรอกแล้วกด สร้าง (gen ภาพจาก prompt)" },
+    {
+      "id": "panel", "type": "tabs", "label": "tabs",
+      "tabs": [
+        { "label": "พื้นฐาน", "fields": [
+          { "id": "name", "type": "text", "label": "ชื่อ (text)" },
+          { "id": "mode", "type": "select", "label": "Mode (toggle)", "widget": "toggle", "options": ["A", "B"], "default": "A" }
+        ]},
+        { "label": "สไตล์", "fields": [
+          { "id": "preset", "type": "select", "label": "พรีเซ็ต (grid)", "widget": "grid", "options": ["UGC", "การ์ตูน 3D", "ละคร", "โฆษณา"], "default": "UGC" },
+          { "id": "genres", "type": "chips", "label": "แนว (chips)", "options": ["ดราม่า", "ตลก", "สยอง", "รัก"] }
+        ]}
+      ]
+    },
     { "id": "prompt", "type": "textarea", "label": "Prompt", "default": "หมีแว่นน่ารัก" },
     { "id": "name", "type": "text", "label": "ชื่อ (text)" },
     { "id": "mode", "type": "select", "label": "Mode (toggle)", "widget": "toggle", "options": ["A", "B"], "default": "A" },
