@@ -16,7 +16,7 @@
   "policy": { "maxParallel": 2, "staggerMs": 5000 },
   "steps": [
     { "type": "forEach", "id": "batch", "over": "prompts", "as": "it", "steps": [
-      { "type": "image", "id": "img", "prompt": "{style}, {it.p}", "aspectRatio": "{aspect}" }
+      { "type": "image", "id": "img", "model": "🍌 Nano Banana Pro", "prompt": "{style}, {it.p}", "aspectRatio": "{aspect}" }
     ] }
   ]
 }
