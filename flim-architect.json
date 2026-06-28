@@ -33,18 +33,24 @@
       "form": [
         { "el": "textarea", "field": "plot", "label": "พล็อตเรื่อง" },
         { "el": "segmented", "field": "style", "label": "สไตล์ภาพ", "options": { "table": "styles" } },
-        { "el": "note", "value": "กด 'เริ่มสร้าง' → AI วางโครง (ตัวละคร+ช็อต) → สร้างหน้าตัวละคร → หยุดให้รีวิว" }
+        { "el": "note", "value": "กด 'เริ่มสร้าง' → AI วางโครง (ตัวละคร+ช็อต) → สร้างหน้าตัวละคร → หยุดให้รีวิว" },
+        { "el": "divider" },
+        { "el": "note", "value": "เซฟ/โหลดงาน — กันงานหายตอน Flow บล็อก (clear cookie). เซฟก่อน clear แล้วโหลดกลับมาทำต่อ" },
+        { "el": "row", "card": [ { "el": "save-button", "scope": "all", "label": "💾 เซฟทั้งโปรเจกต์" }, { "el": "load-button", "mode": "replace", "label": "📂 โหลดโปรเจกต์" } ] }
       ]
     },
     {
       "id": "studio", "title": "1. ตัวละคร (AI สร้างให้)", "subtitle": "รีวิว/แก้ + เจนหน้าใหม่ได้",
       "bind": "characters",
-      "form": [ { "el": "dashboard", "coll": "characters", "label": "ตัวละคร" } ],
+      "form": [
+        { "el": "dashboard", "coll": "characters", "label": "ตัวละคร" },
+        { "el": "row", "card": [ { "el": "save-button", "scope": "characters", "label": "💾 เซฟลิสต์ตัวละคร" }, { "el": "load-button", "into": "characters", "mode": "append", "label": "📂 โหลดเพิ่ม" } ] }
+      ],
       "card": [
         { "el": "input", "field": "name", "label": "ชื่อ" },
         { "el": "media-slot", "src": "{item.slots.sheet}" },
         { "el": "textarea", "field": "appearance", "label": "รูปลักษณ์" },
-        { "el": "row", "card": [ { "el": "gen-button", "label": "เจนหน้าใหม่", "op": "genSheet", "target": "{item}" }, { "el": "pick-button", "into": "{item.slots.sheet}" }, { "el": "delete-button" } ] }
+        { "el": "row", "card": [ { "el": "gen-button", "label": "เจนหน้าใหม่", "op": "genSheet", "target": "{item}" }, { "el": "pick-button", "into": "{item.slots.sheet}" }, { "el": "save-button", "scope": "item", "label": "💾 เซฟตัวนี้" }, { "el": "delete-button" } ] }
       ]
     },
     {
