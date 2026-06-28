@@ -1,0 +1,58 @@
+{
+  "schemaVersion": 1,
+  "title": "หมีจัดไลน์ — Flow (graph pipeline)",
+  "icon": "account_tree",
+  "persistBar": true,
+  "graph": true,
+  "run": { "maxParallel": 2, "staggerMs": 1000, "maxAttempts": 2 },
+  "home": {
+    "title": "หมีจัดไลน์ผลิต",
+    "subtitle": "ออกแบบ pipeline แบบกราฟ (ต่อ node เอง) → รันตามลำดับ dependency อัตโนมัติ",
+    "hero": "🐻",
+    "cta": "เริ่มจัดไลน์"
+  },
+  "collections": {
+    "shots": { "fields": ["concept"], "slots": ["base", "left", "right", "final"] }
+  },
+  "lookups": {
+    "imageModels": { "🍌 Nano Banana Pro": "🍌 Nano Banana Pro", "Imagen 4": "Imagen 4" },
+    "videoModels": { "Veo 3.1 - Fast": "Veo 3.1 - Fast", "Veo 3.1 - Quality": "Veo 3.1 - Quality" }
+  },
+  "values": { "imageModel": "🍌 Nano Banana Pro", "videoModel": "Veo 3.1 - Fast", "theme": "หมีแว่นในเมืองนีออน" },
+  "seed": { "shots": [ { "id": "sh1", "fields": { "concept": "ฉากเปิดตัว" } } ] },
+  "ops": [
+    { "id": "genBase",  "type": "image", "over": "shots", "model": "{values.imageModel}", "aspectRatio": "9:16",
+      "prompt": "ภาพหลัก: {item.concept}, ธีม {values.theme}", "out": "base" },
+    { "id": "genLeft",  "type": "image", "over": "shots", "model": "{values.imageModel}", "aspectRatio": "9:16",
+      "needs": ["genBase"],
+      "prompt": "มุมซ้าย/โคลสอัพ ต่อจากภาพหลัก: {item.concept}, ธีม {values.theme}",
+      "refs": { "op": "lookupRefs", "from": "shots", "by": "{item.refs.self}", "slot": "base" }, "out": "left" },
+    { "id": "genRight", "type": "image", "over": "shots", "model": "{values.imageModel}", "aspectRatio": "9:16",
+      "needs": ["genBase"],
+      "prompt": "มุมขวา/ไวด์ ต่อจากภาพหลัก: {item.concept}, ธีม {values.theme}", "out": "right" },
+    { "id": "genFinal", "type": "video", "over": "shots", "model": "{values.videoModel}", "aspectRatio": "9:16", "durationSeconds": "8",
+      "needs": ["genLeft", "genRight"],
+      "prompt": "รวมเป็นช็อตวิดีโอ: {item.concept}", "startFrame": "{item.slots.left}", "out": "final" }
+  ],
+  "stages": [],
+  "phases": [
+    {
+      "id": "design", "title": "ไลน์ผลิต (graph)", "subtitle": "node ต่อกันแบบ DAG — genBase → (genLeft + genRight) → genFinal · รันตามลำดับเอง",
+      "bind": "shots",
+      "form": [
+        { "el": "note", "value": "Flow graph: ops มี needs[] = pipeline แบบกราฟ · กด 'เริ่มสร้าง' → รันตามลำดับ dependency (base ก่อน → ซ้าย/ขวาขนาน → รวมวิดีโอ)" },
+        { "el": "dashboard", "coll": "shots", "label": "node" },
+        { "el": "add-button", "coll": "shots", "label": "เพิ่มช็อต" }
+      ],
+      "card": [
+        { "el": "input", "field": "concept", "label": "คอนเซ็ปต์" },
+        { "el": "tabs", "tabs": [
+          { "label": "Base", "card": [ { "el": "media-slot", "src": "{item.slots.base}" }, { "el": "gen-button", "label": "เจน Base", "op": "genBase", "target": "{item}" } ] },
+          { "label": "Left", "card": [ { "el": "media-slot", "src": "{item.slots.left}" }, { "el": "gen-button", "label": "เจน Left", "op": "genLeft", "target": "{item}" } ] },
+          { "label": "Right", "card": [ { "el": "media-slot", "src": "{item.slots.right}" }, { "el": "gen-button", "label": "เจน Right", "op": "genRight", "target": "{item}" } ] },
+          { "label": "Final", "card": [ { "el": "media-slot", "src": "{item.slots.final}" }, { "el": "gen-button", "label": "เจน Final", "op": "genFinal", "target": "{item}" }, { "el": "download-button", "to": "{item.slots.final}" } ] }
+        ] }
+      ]
+    }
+  ]
+}
