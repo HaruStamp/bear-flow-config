@@ -15,7 +15,11 @@
       "--ev-accent-fg": "#ffffff"
     }
   },
-  "style": { "radius": "2xl", "cardRadius": "2xl", "shadow": true },
+  "style": {
+    "radius": "2xl",
+    "cardRadius": "2xl",
+    "shadow": true
+  },
   "breakpoints": {
     "mobile": 640,
     "tablet": 1024
@@ -825,49 +829,55 @@
       "subtitle": "ปก + แคปชั่น + ตัดต่อรวมเป็นวิดีโอ",
       "form": [
         {
-          "el": "repeat",
-          "coll": "episodes",
-          "empty": "ยังไม่มีตอน",
+          "el": "box",
+          "className": "grid grid-cols-1 md:grid-cols-2 gap-3",
           "card": [
             {
-              "el": "card",
+              "el": "repeat",
+              "coll": "episodes",
+              "empty": "ยังไม่มีตอน",
               "card": [
                 {
-                  "el": "media-slot",
-                  "src": "{item.slots.cover}",
-                  "aspect": "9:16"
-                },
-                {
-                  "el": "text",
-                  "value": "ตอน: {item.title}",
-                  "tone": "info"
-                },
-                {
-                  "el": "textarea",
-                  "field": "synopsis",
-                  "label": "เรื่องย่อ",
-                  "maxLength": 300
-                },
-                {
-                  "el": "textarea",
-                  "field": "caption",
-                  "label": "แคปชั่นโพสต์",
-                  "maxLength": 500
-                },
-                {
-                  "el": "row",
+                  "el": "card",
                   "card": [
                     {
-                      "el": "gen-button",
-                      "op": "genCover",
-                      "label": "สร้างปก",
-                      "variant": "solid"
+                      "el": "media-slot",
+                      "src": "{item.slots.cover}",
+                      "aspect": "9:16"
                     },
                     {
-                      "el": "copy-button",
-                      "value": "{item.caption}",
-                      "label": "คัดลอกแคปชั่น",
-                      "icon": "content_copy"
+                      "el": "text",
+                      "value": "ตอน: {item.title}",
+                      "tone": "info"
+                    },
+                    {
+                      "el": "textarea",
+                      "field": "synopsis",
+                      "label": "เรื่องย่อ",
+                      "maxLength": 300
+                    },
+                    {
+                      "el": "textarea",
+                      "field": "caption",
+                      "label": "แคปชั่นโพสต์",
+                      "maxLength": 500
+                    },
+                    {
+                      "el": "row",
+                      "card": [
+                        {
+                          "el": "gen-button",
+                          "op": "genCover",
+                          "label": "สร้างปก",
+                          "variant": "solid"
+                        },
+                        {
+                          "el": "copy-button",
+                          "value": "{item.caption}",
+                          "label": "คัดลอกแคปชั่น",
+                          "icon": "content_copy"
+                        }
+                      ]
                     }
                   ]
                 }
