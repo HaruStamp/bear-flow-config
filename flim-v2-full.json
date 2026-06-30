@@ -3,25 +3,109 @@
   "title": "หมีแว่น การละคร",
   "icon": "movie",
   "persistBar": true,
-  "theme": { "vars": { "--ev-bg": "#0e0e0e", "--ev-surface": "rgba(255,255,255,0.05)", "--ev-surface2": "rgba(255,255,255,0.12)", "--ev-text": "#ffffff", "--ev-dim": "rgba(255,255,255,0.55)", "--ev-border": "rgba(255,255,255,0.10)", "--ev-accent": "#f97316", "--ev-accent-fg": "#ffffff" } },
-  "breakpoints": { "mobile": 640, "tablet": 1024 },
+  "theme": {
+    "vars": {
+      "--ev-bg": "#0e0e0e",
+      "--ev-surface": "rgba(255,255,255,0.05)",
+      "--ev-surface2": "rgba(255,255,255,0.12)",
+      "--ev-text": "#ffffff",
+      "--ev-dim": "rgba(255,255,255,0.55)",
+      "--ev-border": "rgba(255,255,255,0.10)",
+      "--ev-accent": "#f97316",
+      "--ev-accent-fg": "#ffffff"
+    }
+  },
+  "breakpoints": {
+    "mobile": 640,
+    "tablet": 1024
+  },
   "home": {
     "title": "หมีแว่น การละคร",
     "subtitle": "สร้างละครไทยแนวตั้ง ครบวงจร — ใส่พล็อต แล้ว AI วางโครงเรื่อง ตัวละคร ฉาก ช็อต ให้ทั้งหมด",
     "cta": "เริ่มสร้างเรื่อง"
   },
-  "run": { "maxParallel": 2, "staggerMs": 1500, "maxAttempts": 3 },
+  "run": {
+    "maxParallel": 2,
+    "staggerMs": 1500,
+    "maxAttempts": 3
+  },
   "settings": {
     "title": "ตั้งค่าการผลิต",
     "form": [
-      { "el": "dropdown", "field": "imageModel", "label": "โมเดลภาพ", "options": ["🍌 Nano Banana Pro", "Imagen 4", "Imagen 3"] },
-      { "el": "dropdown", "field": "videoModel", "label": "โมเดลวิดีโอ", "options": ["Veo 3.1 - Fast", "Veo 3.1 - Quality", "Veo 3.1 - Lite [Lower Priority]"] },
-      { "el": "segmented", "field": "aspect", "label": "สัดส่วน", "options": [ { "value": "9:16", "label": "แนวตั้ง 9:16" }, { "value": "16:9", "label": "แนวนอน 16:9" }, { "value": "1:1", "label": "จัตุรัส 1:1" } ] },
-      { "el": "switch", "field": "ultra", "label": "Ultra (ปลดล็อก duration 4/6/10 วิ)" },
-      { "el": "divider" },
-      { "el": "stepper", "field": "maxParallel", "label": "ทำพร้อมกัน (lane)", "icon": "splitscreen", "min": 1, "max": 4, "step": 1 },
-      { "el": "stepper", "field": "staggerMs", "label": "เหลื่อมเริ่ม (ms)", "icon": "timer", "min": 0, "max": 8000, "step": 500 },
-      { "el": "stepper", "field": "retryDelay", "label": "หน่วง retry (ms)", "icon": "replay", "min": 0, "max": 10000, "step": 500 }
+      {
+        "el": "dropdown",
+        "field": "imageModel",
+        "label": "โมเดลภาพ",
+        "options": [
+          "🍌 Nano Banana Pro",
+          "Imagen 4",
+          "Imagen 3"
+        ]
+      },
+      {
+        "el": "dropdown",
+        "field": "videoModel",
+        "label": "โมเดลวิดีโอ",
+        "options": [
+          "Veo 3.1 - Fast",
+          "Veo 3.1 - Quality",
+          "Veo 3.1 - Lite [Lower Priority]"
+        ]
+      },
+      {
+        "el": "segmented",
+        "field": "aspect",
+        "label": "สัดส่วน",
+        "options": [
+          {
+            "value": "9:16",
+            "label": "แนวตั้ง 9:16"
+          },
+          {
+            "value": "16:9",
+            "label": "แนวนอน 16:9"
+          },
+          {
+            "value": "1:1",
+            "label": "จัตุรัส 1:1"
+          }
+        ]
+      },
+      {
+        "el": "switch",
+        "field": "ultra",
+        "label": "Ultra (ปลดล็อก duration 4/6/10 วิ)"
+      },
+      {
+        "el": "divider"
+      },
+      {
+        "el": "stepper",
+        "field": "maxParallel",
+        "label": "ทำพร้อมกัน (lane)",
+        "icon": "splitscreen",
+        "min": 1,
+        "max": 4,
+        "step": 1
+      },
+      {
+        "el": "stepper",
+        "field": "staggerMs",
+        "label": "เหลื่อมเริ่ม (ms)",
+        "icon": "timer",
+        "min": 0,
+        "max": 8000,
+        "step": 500
+      },
+      {
+        "el": "stepper",
+        "field": "retryDelay",
+        "label": "หน่วง retry (ms)",
+        "icon": "replay",
+        "min": 0,
+        "max": 10000,
+        "step": 500
+      }
     ]
   },
   "values": {
@@ -45,42 +129,189 @@
     }
   },
   "collections": {
-    "project": { "fields": ["plot", "genre", "epCount", "shotsPerEp"] },
-    "characters": { "fields": ["name", "appearance", "personality"], "slots": ["sheet"] },
-    "scenes": { "fields": ["name", "description"], "slots": ["ref"] },
-    "objects": { "fields": ["name", "description"], "slots": ["ref"] },
-    "episodes": { "fields": ["title", "synopsis", "caption"], "slots": ["cover"] },
-    "shots": { "fields": ["imagePrompt", "cameraAngle", "mood", "motion", "audioType", "duration"], "slots": ["image", "video"] },
-    "lines": { "fields": ["speaker", "text", "audioType"] }
+    "project": {
+      "fields": [
+        "plot",
+        "genre",
+        "epCount",
+        "shotsPerEp"
+      ]
+    },
+    "characters": {
+      "fields": [
+        "name",
+        "appearance",
+        "personality"
+      ],
+      "slots": [
+        "sheet"
+      ]
+    },
+    "scenes": {
+      "fields": [
+        "name",
+        "description"
+      ],
+      "slots": [
+        "ref"
+      ]
+    },
+    "objects": {
+      "fields": [
+        "name",
+        "description"
+      ],
+      "slots": [
+        "ref"
+      ]
+    },
+    "episodes": {
+      "fields": [
+        "title",
+        "synopsis",
+        "caption"
+      ],
+      "slots": [
+        "cover"
+      ]
+    },
+    "shots": {
+      "fields": [
+        "imagePrompt",
+        "cameraAngle",
+        "mood",
+        "motion",
+        "audioType",
+        "duration"
+      ],
+      "slots": [
+        "image",
+        "video"
+      ]
+    },
+    "lines": {
+      "fields": [
+        "speaker",
+        "text",
+        "audioType"
+      ]
+    }
   },
   "seed": {
-    "project": [ { "id": "proj", "fields": { "plot": "หมีแว่นเปิดร้านกาแฟวันแรก เจอลูกค้าตัวป่วน", "genre": "คอเมดี้อบอุ่น", "epCount": "2", "shotsPerEp": "3" } } ]
+    "project": [
+      {
+        "id": "proj",
+        "fields": {
+          "plot": "หมีแว่นเปิดร้านกาแฟวันแรก เจอลูกค้าตัวป่วน",
+          "genre": "คอเมดี้อบอุ่น",
+          "epCount": "2",
+          "shotsPerEp": "3"
+        }
+      }
+    ]
   },
   "ops": [
-    { "id": "architect", "type": "transform", "over": "project", "out": "plan", "fn": "architect" },
-    { "id": "genCharSheet", "type": "image", "over": "characters", "out": "sheet", "model": "{values.imageModel}", "aspectRatio": "1:1",
-      "prompt": "character reference sheet, full body turnaround, {item.name}. Appearance: {item.appearance}. Personality: {item.personality}. Style: {values.style}. clean neutral background." },
-    { "id": "genSceneRef", "type": "image", "over": "scenes", "out": "ref", "model": "{values.imageModel}", "aspectRatio": "16:9",
-      "prompt": "establishing background plate of location: {item.name}. {item.description}. Style: {values.style}. no characters." },
-    { "id": "genObjectRef", "type": "image", "over": "objects", "out": "ref", "model": "{values.imageModel}", "aspectRatio": "1:1",
-      "prompt": "product/prop reference of {item.name}. {item.description}. Style: {values.style}. isolated on clean background." },
-    { "id": "genImage", "type": "image", "over": "shots", "out": "image", "model": "{values.imageModel}", "aspectRatio": "{values.aspect}",
-      "refs": { "op": "lookupRefs", "from": "characters", "by": "{item.refs.char}", "slot": "sheet" },
-      "prompt": "{item.imagePrompt}. Camera: {item.cameraAngle}. Mood: {item.mood}. Style: {values.style}." },
-    { "id": "genVideo", "type": "video", "over": "shots", "out": "video", "model": "{values.videoModel}", "aspectRatio": "{values.aspect}", "durationSeconds": "{item.duration}",
+    {
+      "id": "architect",
+      "type": "transform",
+      "over": "project",
+      "out": "plan",
+      "fn": "architect"
+    },
+    {
+      "id": "genCharSheet",
+      "type": "image",
+      "over": "characters",
+      "out": "sheet",
+      "model": "{values.imageModel}",
+      "aspectRatio": "1:1",
+      "prompt": "character reference sheet, full body turnaround, {item.name}. Appearance: {item.appearance}. Personality: {item.personality}. Style: {values.style}. clean neutral background."
+    },
+    {
+      "id": "genSceneRef",
+      "type": "image",
+      "over": "scenes",
+      "out": "ref",
+      "model": "{values.imageModel}",
+      "aspectRatio": "16:9",
+      "prompt": "establishing background plate of location: {item.name}. {item.description}. Style: {values.style}. no characters."
+    },
+    {
+      "id": "genObjectRef",
+      "type": "image",
+      "over": "objects",
+      "out": "ref",
+      "model": "{values.imageModel}",
+      "aspectRatio": "1:1",
+      "prompt": "product/prop reference of {item.name}. {item.description}. Style: {values.style}. isolated on clean background."
+    },
+    {
+      "id": "genImage",
+      "type": "image",
+      "over": "shots",
+      "out": "image",
+      "model": "{values.imageModel}",
+      "aspectRatio": "{values.aspect}",
+      "refs": {
+        "op": "lookupRefs",
+        "from": "characters",
+        "by": "{item.refs.char}",
+        "slot": "sheet"
+      },
+      "prompt": "{item.imagePrompt}. Camera: {item.cameraAngle}. Mood: {item.mood}. Style: {values.style}."
+    },
+    {
+      "id": "genVideo",
+      "type": "video",
+      "over": "shots",
+      "out": "video",
+      "model": "{values.videoModel}",
+      "aspectRatio": "{values.aspect}",
+      "durationSeconds": "{item.duration}",
       "startFrame": "{item.slots.image}",
-      "prompt": "{item.motion}. {item.mood}." },
-    { "id": "genCover", "type": "image", "over": "episodes", "out": "cover", "model": "{values.imageModel}", "aspectRatio": "{values.aspect}",
-      "prompt": "vertical episode cover poster for \"{item.title}\". {item.synopsis}. Style: {values.style}. dramatic title-card composition." }
+      "prompt": "{item.motion}. {item.mood}."
+    },
+    {
+      "id": "genCover",
+      "type": "image",
+      "over": "episodes",
+      "out": "cover",
+      "model": "{values.imageModel}",
+      "aspectRatio": "{values.aspect}",
+      "prompt": "vertical episode cover poster for \"{item.title}\". {item.synopsis}. Style: {values.style}. dramatic title-card composition."
+    }
   ],
   "stages": [
-    { "op": "architect" },
-    { "opGroup": ["genCharSheet", "genSceneRef", "genObjectRef"] },
-    { "checkpoint": "studio", "gate": { "op": "all", "from": "characters", "slot": "sheet" } },
-    { "op": "genImage" },
-    { "checkpoint": "storyboard" },
-    { "op": "genVideo" },
-    { "op": "genCover" }
+    {
+      "op": "architect"
+    },
+    {
+      "opGroup": [
+        "genCharSheet",
+        "genSceneRef",
+        "genObjectRef"
+      ]
+    },
+    {
+      "checkpoint": "studio",
+      "gate": {
+        "op": "all",
+        "from": "characters",
+        "slot": "sheet"
+      }
+    },
+    {
+      "op": "genImage"
+    },
+    {
+      "checkpoint": "storyboard"
+    },
+    {
+      "op": "genVideo"
+    },
+    {
+      "op": "genCover"
+    }
   ],
   "phases": [
     {
@@ -89,15 +320,82 @@
       "subtitle": "พล็อต + แนว + จำนวนตอน/ช็อต → AI วางโครงทั้งหมด",
       "bind": "project",
       "card": [
-        { "el": "segmented", "field": "mode", "label": "โหมด", "options": [ { "value": "create", "label": "สร้างใหม่", "icon": "auto_awesome" }, { "value": "follow", "label": "ทำตามพล็อต", "icon": "description" } ] },
-        { "el": "textarea", "field": "plot", "label": "พล็อตเรื่อง", "maxLength": 2000 },
-        { "el": "input", "field": "genre", "label": "แนว (genre)" },
-        { "el": "row", "card": [
-          { "el": "stepper", "field": "epCount", "label": "จำนวนตอน", "icon": "list", "min": 1, "max": 10, "step": 1 },
-          { "el": "stepper", "field": "shotsPerEp", "label": "ช็อต/ตอน", "icon": "grid_view", "min": 1, "max": 12, "step": 1 }
-        ]},
-        { "el": "segmented", "field": "narration", "label": "เสียงเล่า", "options": [ { "value": "dialogue", "label": "บทพูด" }, { "value": "narration", "label": "บรรยาย" }, { "value": "silent", "label": "เงียบ" } ] },
-        { "el": "note", "tone": "info", "icon": "smart_toy", "value": "กด 'เริ่มสร้าง' → AI วางโครงตัวละคร/ฉาก/วัตถุ/ตอน/ช็อต แล้วไปแต่ละหน้าเพื่อ gen" }
+        {
+          "el": "segmented",
+          "field": "mode",
+          "label": "โหมด",
+          "options": [
+            {
+              "value": "create",
+              "label": "สร้างใหม่",
+              "icon": "auto_awesome"
+            },
+            {
+              "value": "follow",
+              "label": "ทำตามพล็อต",
+              "icon": "description"
+            }
+          ]
+        },
+        {
+          "el": "textarea",
+          "field": "plot",
+          "label": "พล็อตเรื่อง",
+          "maxLength": 2000
+        },
+        {
+          "el": "input",
+          "field": "genre",
+          "label": "แนว (genre)"
+        },
+        {
+          "el": "row",
+          "card": [
+            {
+              "el": "stepper",
+              "field": "epCount",
+              "label": "จำนวนตอน",
+              "icon": "list",
+              "min": 1,
+              "max": 10,
+              "step": 1
+            },
+            {
+              "el": "stepper",
+              "field": "shotsPerEp",
+              "label": "ช็อต/ตอน",
+              "icon": "grid_view",
+              "min": 1,
+              "max": 12,
+              "step": 1
+            }
+          ]
+        },
+        {
+          "el": "segmented",
+          "field": "narration",
+          "label": "เสียงเล่า",
+          "options": [
+            {
+              "value": "dialogue",
+              "label": "บทพูด"
+            },
+            {
+              "value": "narration",
+              "label": "บรรยาย"
+            },
+            {
+              "value": "silent",
+              "label": "เงียบ"
+            }
+          ]
+        },
+        {
+          "el": "note",
+          "tone": "info",
+          "icon": "smart_toy",
+          "value": "กด 'เริ่มสร้าง' → AI วางโครงตัวละคร/ฉาก/วัตถุ/ตอน/ช็อต แล้วไปแต่ละหน้าเพื่อ gen"
+        }
       ]
     },
     {
@@ -105,53 +403,221 @@
       "title": "สตูดิโอ — คลังอ้างอิง (Studio)",
       "subtitle": "ตัวละคร · ฉาก · วัตถุ — สร้างภาพอ้างอิงก่อนใช้ในช็อต",
       "form": [
-        { "el": "dashboard", "coll": "characters", "label": "ตัวละคร" },
-        { "el": "group", "label": "👤 ตัวละคร", "icon": "group", "card": [
-          { "el": "repeat", "coll": "characters", "empty": "ยังไม่มีตัวละคร — วางโครงก่อน หรือกดเพิ่ม", "card": [
-            { "el": "card", "card": [
-              { "el": "media-slot", "src": "{item.slots.sheet}", "aspect": "1:1" },
-              { "el": "input", "field": "name", "label": "ชื่อ" },
-              { "el": "textarea", "field": "appearance", "label": "หน้าตา", "maxLength": 200 },
-              { "el": "textarea", "field": "personality", "label": "นิสัย", "maxLength": 150 },
-              { "el": "row", "card": [
-                { "el": "gen-button", "op": "genCharSheet", "label": "สร้าง", "variant": "solid" },
-                { "el": "pick-button", "into": "{item.slots.sheet}", "iconOnly": true, "icon": "image_search" },
-                { "el": "retry-button", "op": "genCharSheet", "iconOnly": true },
-                { "el": "delete-button", "iconOnly": true }
-              ]}
-            ]}
-          ]},
-          { "el": "add-button", "coll": "characters", "label": "เพิ่มตัวละคร" }
-        ]},
-        { "el": "group", "label": "🏞️ ฉาก", "icon": "landscape", "collapsible": true, "summary": "สถานที่/ฉากหลัง", "card": [
-          { "el": "repeat", "coll": "scenes", "empty": "ยังไม่มีฉาก", "card": [
-            { "el": "card", "card": [
-              { "el": "media-slot", "src": "{item.slots.ref}", "aspect": "16:9" },
-              { "el": "input", "field": "name", "label": "ชื่อฉาก" },
-              { "el": "textarea", "field": "description", "label": "รายละเอียด", "maxLength": 200 },
-              { "el": "row", "card": [
-                { "el": "gen-button", "op": "genSceneRef", "label": "สร้าง", "variant": "solid" },
-                { "el": "pick-button", "into": "{item.slots.ref}", "iconOnly": true, "icon": "image_search" },
-                { "el": "delete-button", "iconOnly": true }
-              ]}
-            ]}
-          ]},
-          { "el": "add-button", "coll": "scenes", "label": "เพิ่มฉาก" }
-        ]},
-        { "el": "group", "label": "📦 วัตถุ/พร็อพ", "icon": "category", "collapsible": true, "summary": "สิ่งของในเรื่อง", "card": [
-          { "el": "repeat", "coll": "objects", "empty": "ยังไม่มีวัตถุ", "card": [
-            { "el": "card", "card": [
-              { "el": "media-slot", "src": "{item.slots.ref}", "aspect": "1:1" },
-              { "el": "input", "field": "name", "label": "ชื่อวัตถุ" },
-              { "el": "textarea", "field": "description", "label": "รายละเอียด", "maxLength": 150 },
-              { "el": "row", "card": [
-                { "el": "gen-button", "op": "genObjectRef", "label": "สร้าง", "variant": "solid" },
-                { "el": "delete-button", "iconOnly": true }
-              ]}
-            ]}
-          ]},
-          { "el": "add-button", "coll": "objects", "label": "เพิ่มวัตถุ" }
-        ]}
+        {
+          "el": "dashboard",
+          "coll": "characters",
+          "label": "ตัวละคร"
+        },
+        {
+          "el": "group",
+          "label": "👤 ตัวละคร",
+          "icon": "group",
+          "card": [
+            {
+              "el": "box",
+              "className": "grid grid-cols-2 lg:grid-cols-3 gap-3",
+              "card": [
+                {
+                  "el": "repeat",
+                  "coll": "characters",
+                  "empty": "ยังไม่มีตัวละคร — วางโครงก่อน หรือกดเพิ่ม",
+                  "card": [
+                    {
+                      "el": "card",
+                      "card": [
+                        {
+                          "el": "media-slot",
+                          "src": "{item.slots.sheet}",
+                          "aspect": "1:1"
+                        },
+                        {
+                          "el": "input",
+                          "field": "name",
+                          "label": "ชื่อ"
+                        },
+                        {
+                          "el": "textarea",
+                          "field": "appearance",
+                          "label": "หน้าตา",
+                          "maxLength": 200
+                        },
+                        {
+                          "el": "textarea",
+                          "field": "personality",
+                          "label": "นิสัย",
+                          "maxLength": 150
+                        },
+                        {
+                          "el": "row",
+                          "card": [
+                            {
+                              "el": "gen-button",
+                              "op": "genCharSheet",
+                              "label": "สร้าง",
+                              "variant": "solid"
+                            },
+                            {
+                              "el": "pick-button",
+                              "into": "{item.slots.sheet}",
+                              "iconOnly": true,
+                              "icon": "image_search"
+                            },
+                            {
+                              "el": "retry-button",
+                              "op": "genCharSheet",
+                              "iconOnly": true
+                            },
+                            {
+                              "el": "delete-button",
+                              "iconOnly": true
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "el": "add-button",
+              "coll": "characters",
+              "label": "เพิ่มตัวละคร"
+            }
+          ]
+        },
+        {
+          "el": "group",
+          "label": "🏞️ ฉาก",
+          "icon": "landscape",
+          "collapsible": true,
+          "summary": "สถานที่/ฉากหลัง",
+          "card": [
+            {
+              "el": "box",
+              "className": "grid grid-cols-1 sm:grid-cols-2 gap-3",
+              "card": [
+                {
+                  "el": "repeat",
+                  "coll": "scenes",
+                  "empty": "ยังไม่มีฉาก",
+                  "card": [
+                    {
+                      "el": "card",
+                      "card": [
+                        {
+                          "el": "media-slot",
+                          "src": "{item.slots.ref}",
+                          "aspect": "16:9"
+                        },
+                        {
+                          "el": "input",
+                          "field": "name",
+                          "label": "ชื่อฉาก"
+                        },
+                        {
+                          "el": "textarea",
+                          "field": "description",
+                          "label": "รายละเอียด",
+                          "maxLength": 200
+                        },
+                        {
+                          "el": "row",
+                          "card": [
+                            {
+                              "el": "gen-button",
+                              "op": "genSceneRef",
+                              "label": "สร้าง",
+                              "variant": "solid"
+                            },
+                            {
+                              "el": "pick-button",
+                              "into": "{item.slots.ref}",
+                              "iconOnly": true,
+                              "icon": "image_search"
+                            },
+                            {
+                              "el": "delete-button",
+                              "iconOnly": true
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "el": "add-button",
+              "coll": "scenes",
+              "label": "เพิ่มฉาก"
+            }
+          ]
+        },
+        {
+          "el": "group",
+          "label": "📦 วัตถุ/พร็อพ",
+          "icon": "category",
+          "collapsible": true,
+          "summary": "สิ่งของในเรื่อง",
+          "card": [
+            {
+              "el": "box",
+              "className": "grid grid-cols-2 lg:grid-cols-3 gap-3",
+              "card": [
+                {
+                  "el": "repeat",
+                  "coll": "objects",
+                  "empty": "ยังไม่มีวัตถุ",
+                  "card": [
+                    {
+                      "el": "card",
+                      "card": [
+                        {
+                          "el": "media-slot",
+                          "src": "{item.slots.ref}",
+                          "aspect": "1:1"
+                        },
+                        {
+                          "el": "input",
+                          "field": "name",
+                          "label": "ชื่อวัตถุ"
+                        },
+                        {
+                          "el": "textarea",
+                          "field": "description",
+                          "label": "รายละเอียด",
+                          "maxLength": 150
+                        },
+                        {
+                          "el": "row",
+                          "card": [
+                            {
+                              "el": "gen-button",
+                              "op": "genObjectRef",
+                              "label": "สร้าง",
+                              "variant": "solid"
+                            },
+                            {
+                              "el": "delete-button",
+                              "iconOnly": true
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "el": "add-button",
+              "coll": "objects",
+              "label": "เพิ่มวัตถุ"
+            }
+          ]
+        }
       ]
     },
     {
@@ -159,36 +625,197 @@
       "title": "สตอรี่บอร์ด + ถ่ายทำ (รวม)",
       "subtitle": "การ์ดเดียวต่อช็อต: สร้างภาพ → พอมีภาพ ส่วนวิดีโอ+บทพูดจะโผล่ (multi-state)",
       "bind": "shots",
-      "form": [ { "el": "dashboard", "coll": "shots", "label": "ช็อตทั้งหมด" } ],
+      "form": [
+        {
+          "el": "dashboard",
+          "coll": "shots",
+          "label": "ช็อตทั้งหมด"
+        }
+      ],
       "card": [
-        { "el": "media-slot", "src": "{item.slots.image}", "aspect": "9:16" },
-        { "el": "ref-select", "field": "char", "coll": "characters", "label": "ตัวละคร", "icon": "person", "empty": "ยังไม่มีตัวละคร" },
-        { "el": "ref-select", "field": "scene", "coll": "scenes", "label": "ฉาก", "icon": "landscape", "empty": "ยังไม่มีฉาก" },
-        { "el": "ref-select", "field": "object", "coll": "objects", "label": "วัตถุ", "icon": "category", "empty": "ยังไม่มีวัตถุ" },
-        { "el": "textarea", "field": "imagePrompt", "label": "พรอมต์ภาพ", "maxLength": 300 },
-        { "el": "row", "card": [
-          { "el": "dropdown", "field": "cameraAngle", "label": "มุมกล้อง", "options": ["wide shot", "medium shot", "close-up", "over-the-shoulder", "POV"] },
-          { "el": "dropdown", "field": "mood", "label": "อารมณ์", "options": ["happy", "tense", "sad", "romantic", "comedic", "dramatic"] }
-        ]},
-        { "el": "gen-button", "op": "genImage", "label": "สร้างภาพ", "variant": "solid" },
-
-        { "el": "divider", "when": "item.slots.image!=" },
-        { "el": "note", "tone": "success", "icon": "movie", "value": "ภาพพร้อม → ตั้งค่าวิดีโอ+บทพูดได้ (วิดีโอใช้ภาพเป็นเฟรมแรก)", "when": "item.slots.image!=" },
-        { "el": "media-slot", "src": "{item.slots.video}", "aspect": "9:16", "when": "item.slots.image!=" },
-        { "el": "textarea", "field": "motion", "label": "การเคลื่อนไหว/กล้อง", "maxLength": 200, "when": "item.slots.image!=" },
-        { "el": "row", "when": "item.slots.image!=", "card": [
-          { "el": "segmented", "field": "duration", "label": "ความยาว", "options": [ { "value": "8", "label": "8 วิ" }, { "value": "4", "label": "4 วิ", "disabled": true, "reason": "Ultra" }, { "value": "6", "label": "6 วิ", "disabled": true, "reason": "Ultra" } ] },
-          { "el": "dropdown", "field": "audioType", "label": "เสียง", "options": ["dialogue", "narration", "sfx only", "music"] }
-        ]},
-        { "el": "child-list", "childColl": "lines", "childBy": "shot", "label": "บทพูด (หลายคน)", "placeholder": "เพิ่มบรรทัด", "when": "item.slots.image!=", "card": [
-          { "el": "dropdown", "field": "speaker", "label": "ผู้พูด", "options": { "coll": "characters", "label": "name", "value": "name" } },
-          { "el": "input", "field": "text", "placeholder": "พูดว่า..." }
-        ]},
-        { "el": "row", "when": "item.slots.image!=", "card": [
-          { "el": "gen-button", "op": "genVideo", "label": "สร้างวิดีโอ", "variant": "solid" },
-          { "el": "download-button", "to": "{item.slots.video}", "iconOnly": true, "when": "item.slots.video!=" },
-          { "el": "copy-button", "value": "{item.imagePrompt}", "iconOnly": true }
-        ]}
+        {
+          "el": "media-slot",
+          "src": "{item.slots.image}",
+          "aspect": "9:16"
+        },
+        {
+          "el": "ref-select",
+          "field": "char",
+          "coll": "characters",
+          "label": "ตัวละคร",
+          "icon": "person",
+          "empty": "ยังไม่มีตัวละคร"
+        },
+        {
+          "el": "ref-select",
+          "field": "scene",
+          "coll": "scenes",
+          "label": "ฉาก",
+          "icon": "landscape",
+          "empty": "ยังไม่มีฉาก"
+        },
+        {
+          "el": "ref-select",
+          "field": "object",
+          "coll": "objects",
+          "label": "วัตถุ",
+          "icon": "category",
+          "empty": "ยังไม่มีวัตถุ"
+        },
+        {
+          "el": "textarea",
+          "field": "imagePrompt",
+          "label": "พรอมต์ภาพ",
+          "maxLength": 300
+        },
+        {
+          "el": "row",
+          "card": [
+            {
+              "el": "dropdown",
+              "field": "cameraAngle",
+              "label": "มุมกล้อง",
+              "options": [
+                "wide shot",
+                "medium shot",
+                "close-up",
+                "over-the-shoulder",
+                "POV"
+              ]
+            },
+            {
+              "el": "dropdown",
+              "field": "mood",
+              "label": "อารมณ์",
+              "options": [
+                "happy",
+                "tense",
+                "sad",
+                "romantic",
+                "comedic",
+                "dramatic"
+              ]
+            }
+          ]
+        },
+        {
+          "el": "gen-button",
+          "op": "genImage",
+          "label": "สร้างภาพ",
+          "variant": "solid"
+        },
+        {
+          "el": "divider",
+          "when": "item.slots.image!="
+        },
+        {
+          "el": "note",
+          "tone": "success",
+          "icon": "movie",
+          "value": "ภาพพร้อม → ตั้งค่าวิดีโอ+บทพูดได้ (วิดีโอใช้ภาพเป็นเฟรมแรก)",
+          "when": "item.slots.image!="
+        },
+        {
+          "el": "media-slot",
+          "src": "{item.slots.video}",
+          "aspect": "9:16",
+          "when": "item.slots.image!="
+        },
+        {
+          "el": "textarea",
+          "field": "motion",
+          "label": "การเคลื่อนไหว/กล้อง",
+          "maxLength": 200,
+          "when": "item.slots.image!="
+        },
+        {
+          "el": "row",
+          "when": "item.slots.image!=",
+          "card": [
+            {
+              "el": "segmented",
+              "field": "duration",
+              "label": "ความยาว",
+              "options": [
+                {
+                  "value": "8",
+                  "label": "8 วิ"
+                },
+                {
+                  "value": "4",
+                  "label": "4 วิ",
+                  "disabled": true,
+                  "reason": "Ultra"
+                },
+                {
+                  "value": "6",
+                  "label": "6 วิ",
+                  "disabled": true,
+                  "reason": "Ultra"
+                }
+              ]
+            },
+            {
+              "el": "dropdown",
+              "field": "audioType",
+              "label": "เสียง",
+              "options": [
+                "dialogue",
+                "narration",
+                "sfx only",
+                "music"
+              ]
+            }
+          ]
+        },
+        {
+          "el": "child-list",
+          "childColl": "lines",
+          "childBy": "shot",
+          "label": "บทพูด (หลายคน)",
+          "placeholder": "เพิ่มบรรทัด",
+          "when": "item.slots.image!=",
+          "card": [
+            {
+              "el": "dropdown",
+              "field": "speaker",
+              "label": "ผู้พูด",
+              "options": {
+                "coll": "characters",
+                "label": "name",
+                "value": "name"
+              }
+            },
+            {
+              "el": "input",
+              "field": "text",
+              "placeholder": "พูดว่า..."
+            }
+          ]
+        },
+        {
+          "el": "row",
+          "when": "item.slots.image!=",
+          "card": [
+            {
+              "el": "gen-button",
+              "op": "genVideo",
+              "label": "สร้างวิดีโอ",
+              "variant": "solid"
+            },
+            {
+              "el": "download-button",
+              "to": "{item.slots.video}",
+              "iconOnly": true,
+              "when": "item.slots.video!="
+            },
+            {
+              "el": "copy-button",
+              "value": "{item.imagePrompt}",
+              "iconOnly": true
+            }
+          ]
+        }
       ]
     },
     {
@@ -196,21 +823,72 @@
       "title": "ส่งออก (Final)",
       "subtitle": "ปก + แคปชั่น + ตัดต่อรวมเป็นวิดีโอ",
       "form": [
-        { "el": "repeat", "coll": "episodes", "empty": "ยังไม่มีตอน", "card": [
-          { "el": "card", "card": [
-            { "el": "media-slot", "src": "{item.slots.cover}", "aspect": "9:16" },
-            { "el": "text", "value": "ตอน: {item.title}", "tone": "info" },
-            { "el": "textarea", "field": "synopsis", "label": "เรื่องย่อ", "maxLength": 300 },
-            { "el": "textarea", "field": "caption", "label": "แคปชั่นโพสต์", "maxLength": 500 },
-            { "el": "row", "card": [
-              { "el": "gen-button", "op": "genCover", "label": "สร้างปก", "variant": "solid" },
-              { "el": "copy-button", "value": "{item.caption}", "label": "คัดลอกแคปชั่น", "icon": "content_copy" }
-            ]}
-          ]}
-        ]},
-        { "el": "divider" },
-        { "el": "note", "tone": "info", "value": "เปิดโปรแกรมตัดต่อเพื่อรวมช็อตเป็นวิดีโอเดียว (ต่อตอน)" },
-        { "el": "open-editor", "coll": "shots", "childColl": "episodes", "childBy": "ep", "label": "เปิดโปรแกรมตัดต่อ" }
+        {
+          "el": "repeat",
+          "coll": "episodes",
+          "empty": "ยังไม่มีตอน",
+          "card": [
+            {
+              "el": "card",
+              "card": [
+                {
+                  "el": "media-slot",
+                  "src": "{item.slots.cover}",
+                  "aspect": "9:16"
+                },
+                {
+                  "el": "text",
+                  "value": "ตอน: {item.title}",
+                  "tone": "info"
+                },
+                {
+                  "el": "textarea",
+                  "field": "synopsis",
+                  "label": "เรื่องย่อ",
+                  "maxLength": 300
+                },
+                {
+                  "el": "textarea",
+                  "field": "caption",
+                  "label": "แคปชั่นโพสต์",
+                  "maxLength": 500
+                },
+                {
+                  "el": "row",
+                  "card": [
+                    {
+                      "el": "gen-button",
+                      "op": "genCover",
+                      "label": "สร้างปก",
+                      "variant": "solid"
+                    },
+                    {
+                      "el": "copy-button",
+                      "value": "{item.caption}",
+                      "label": "คัดลอกแคปชั่น",
+                      "icon": "content_copy"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "el": "divider"
+        },
+        {
+          "el": "note",
+          "tone": "info",
+          "value": "เปิดโปรแกรมตัดต่อเพื่อรวมช็อตเป็นวิดีโอเดียว (ต่อตอน)"
+        },
+        {
+          "el": "open-editor",
+          "coll": "shots",
+          "childColl": "episodes",
+          "childBy": "ep",
+          "label": "เปิดโปรแกรมตัดต่อ"
+        }
       ]
     }
   ],
