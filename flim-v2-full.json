@@ -17,9 +17,14 @@
   },
   "style": {
     "radius": "2xl",
-    "cardRadius": "2xl",
-    "shadow": true
+    "cardRadius": 26,
+    "cardPad": 6,
+    "cardGradient": true,
+    "shadow": true,
+    "dropdown": "custom",
+    "selectedFill": "solid"
   },
+  "devBar": false,
   "breakpoints": {
     "mobile": 640,
     "tablet": 1024
@@ -141,8 +146,8 @@
     "retryDelay": "2000",
     "plot": "หมีแว่นเปิดร้านกาแฟวันแรก เจอลูกค้าตัวป่วน",
     "genre": "ตลก, ดราม่า",
-    "epCount": "2",
-    "shotsPerEp": "3",
+    "epCount": "3",
+    "shotsPerEp": "10",
     "dialogueLanguage": "th"
   },
   "lookups": {
@@ -362,7 +367,6 @@
             {
               "el": "text",
               "value": "ใส่พล็อตกับจำนวนตอน เดี๋ยวพี่หมีจัดการออกแบบบททั้งหมดให้",
-              "tone": "info",
               "className": "text-center mb-2 relative"
             },
             {
@@ -474,13 +478,13 @@
                     {
                       "el": "row",
                       "card": [
-                        { "el": "slider", "field": "epCount", "label": "จำนวนตอน", "min": 1, "max": 10 },
-                        { "el": "slider", "field": "shotsPerEp", "label": "ช็อตต่อตอน", "min": 5, "max": 30 }
+                        { "el": "slider", "field": "epCount", "label": "จำนวนตอน", "min": 1, "max": 10, "unit": "ตอน" },
+                        { "el": "slider", "field": "shotsPerEp", "label": "ช็อตต่อตอน", "min": 5, "max": 30, "unit": "ช็อต" }
                       ]
                     }
                   ]
                 },
-                { "el": "run-button", "label": "สร้างบทละคร", "icon": "auto_awesome", "className": "w-full" }
+                { "el": "run-button", "label": "สร้างบทละคร", "icon": "auto_awesome", "textSize": "text-base", "className": "w-full h-[60px] justify-center rounded-2xl" }
               ]
             }
           ]
