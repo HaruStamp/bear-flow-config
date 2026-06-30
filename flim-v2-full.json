@@ -138,7 +138,12 @@
     "ultra": "",
     "maxParallel": "2",
     "staggerMs": "1500",
-    "retryDelay": "2000"
+    "retryDelay": "2000",
+    "plot": "หมีแว่นเปิดร้านกาแฟวันแรก เจอลูกค้าตัวป่วน",
+    "genre": "ตลก, ดราม่า",
+    "epCount": "2",
+    "shotsPerEp": "3",
+    "dialogueLanguage": "th"
   },
   "lookups": {
     "styleHint": {
@@ -220,12 +225,7 @@
     "project": [
       {
         "id": "proj",
-        "fields": {
-          "plot": "หมีแว่นเปิดร้านกาแฟวันแรก เจอลูกค้าตัวป่วน",
-          "genre": "คอเมดี้อบอุ่น",
-          "epCount": "2",
-          "shotsPerEp": "3"
-        }
+        "fields": {}
       }
     ]
   },
@@ -348,85 +348,100 @@
   "phases": [
     {
       "id": "setup",
-      "title": "ตั้งเรื่อง (Setup)",
-      "subtitle": "พล็อต + แนว + จำนวนตอน/ช็อต → AI วางโครงทั้งหมด",
-      "bind": "project",
-      "card": [
+      "form": [
         {
-          "el": "segmented",
-          "field": "mode",
-          "label": "โหมด",
-          "options": [
-            {
-              "value": "create",
-              "label": "สร้างใหม่",
-              "icon": "auto_awesome"
-            },
-            {
-              "value": "follow",
-              "label": "ทำตามพล็อต",
-              "icon": "description"
-            }
-          ]
+          "el": "md",
+          "value": "**สร้างละครเรื่องใหม่**",
+          "className": "text-center text-2xl sm:text-3xl font-black tracking-tight"
         },
         {
-          "el": "textarea",
-          "field": "plot",
-          "label": "พล็อตเรื่อง",
-          "maxLength": 2000
+          "el": "text",
+          "value": "ใส่พล็อตกับจำนวนตอน เดี๋ยวพี่หมีจัดการออกแบบบททั้งหมดให้",
+          "tone": "info",
+          "className": "text-center"
         },
         {
-          "el": "input",
-          "field": "genre",
-          "label": "แนว (genre)"
-        },
-        {
-          "el": "row",
+          "el": "card",
           "card": [
             {
-              "el": "stepper",
-              "field": "epCount",
-              "label": "จำนวนตอน",
-              "icon": "list",
-              "min": 1,
-              "max": 10,
-              "step": 1
+              "el": "grid-select",
+              "field": "mode",
+              "label": "โหมดบท",
+              "cols": 2,
+              "options": [
+                { "value": "create", "label": "แต่งเรื่องให้", "icon": "auto_fix_high", "desc": "มีแค่ไอเดีย — AI ออกแบบเรื่อง/ตัวละคร/หักมุม ต่อยอดให้" },
+                { "value": "follow", "label": "ทำตามบทเป๊ะ", "icon": "menu_book", "desc": "มีบท/นิยายแล้ว — AI ทำตามนั้น แค่ลงรายละเอียด ไม่แต่งใหม่" }
+              ]
             },
             {
-              "el": "stepper",
-              "field": "shotsPerEp",
-              "label": "ช็อต/ตอน",
-              "icon": "grid_view",
-              "min": 1,
-              "max": 12,
-              "step": 1
+              "el": "textarea",
+              "field": "plot",
+              "label": "พล็อตเรื่อง / เนื้อเรื่องหลัก",
+              "maxLength": 1000,
+              "placeholder": "พิมพ์พล็อตของคุณ..."
+            },
+            {
+              "el": "chips",
+              "field": "genre",
+              "label": "แนวเรื่อง (เลือกได้หลายแนว)",
+              "options": ["ตลก", "ดราม่า", "สืบสวน", "ไซไฟ", "โรแมนติก", "สยองขวัญ", "แฟนตาซี", "แอคชั่น"]
+            },
+            {
+              "el": "dropdown",
+              "field": "style",
+              "label": "สไตล์ภาพ",
+              "options": [
+                { "value": "cinematic warm tone, soft cinematic light, Thai drama", "label": "ซีเนมาติก (ละครไทย)" },
+                { "value": "anime cel-shaded, vibrant, expressive", "label": "อนิเมะ" },
+                { "value": "photorealistic, natural lighting, detailed", "label": "เสมือนจริง" }
+              ]
+            },
+            {
+              "el": "segmented",
+              "field": "narration",
+              "label": "การเล่าเรื่อง",
+              "options": [
+                { "value": "dialogue", "label": "บทสนทนา", "icon": "forum" },
+                { "value": "narration", "label": "เสียงบรรยาย", "icon": "record_voice_over" },
+                { "value": "silent", "label": "ไม่มีเสียงพูด", "icon": "voice_over_off" }
+              ]
+            },
+            {
+              "el": "row",
+              "card": [
+                {
+                  "el": "segmented",
+                  "field": "dialogueLanguage",
+                  "label": "ภาษาบทพูด",
+                  "when": "narration!=silent",
+                  "options": [
+                    { "value": "th", "label": "ไทย" },
+                    { "value": "en", "label": "English" }
+                  ]
+                },
+                {
+                  "el": "dropdown",
+                  "field": "accent",
+                  "label": "สำเนียงหลัก",
+                  "when": "narration!=silent",
+                  "options": ["กลาง", "อีสาน", "เหนือ", "ใต้", "กรุงเทพ"]
+                }
+              ]
+            },
+            {
+              "el": "row",
+              "card": [
+                { "el": "slider", "field": "epCount", "label": "จำนวนตอน", "min": 1, "max": 10 },
+                { "el": "slider", "field": "shotsPerEp", "label": "ช็อตต่อตอน", "min": 5, "max": 30 }
+              ]
+            },
+            {
+              "el": "note",
+              "tone": "info",
+              "icon": "smart_toy",
+              "value": "กด 'เริ่มสร้าง' ด้านล่าง → AI วางโครงตัวละคร/ฉาก/ตอน/ช็อต ให้ทั้งหมด"
             }
           ]
-        },
-        {
-          "el": "segmented",
-          "field": "narration",
-          "label": "เสียงเล่า",
-          "options": [
-            {
-              "value": "dialogue",
-              "label": "บทพูด"
-            },
-            {
-              "value": "narration",
-              "label": "บรรยาย"
-            },
-            {
-              "value": "silent",
-              "label": "เงียบ"
-            }
-          ]
-        },
-        {
-          "el": "note",
-          "tone": "info",
-          "icon": "smart_toy",
-          "value": "กด 'เริ่มสร้าง' → AI วางโครงตัวละคร/ฉาก/วัตถุ/ตอน/ช็อต แล้วไปแต่ละหน้าเพื่อ gen"
         }
       ]
     },
