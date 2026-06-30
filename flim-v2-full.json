@@ -15,6 +15,7 @@
       "--ev-accent-fg": "#ffffff"
     }
   },
+  "style": { "radius": "2xl", "cardRadius": "2xl", "shadow": true },
   "breakpoints": {
     "mobile": 640,
     "tablet": 1024
