@@ -49,7 +49,7 @@
     "leafParentRef": "ep",
     "assets": ["characters", "scenes", "objects"],
     "architect": "architect",
-    "magicChips": ["เพิ่มความเข้มข้น", "พลิกตอนจบให้คาดไม่ถึง", "เพิ่มมุกตลก", "ตัดให้กระชับ", "ทำให้สมจริงขึ้น"]
+    "magicChips": ["เพิ่มความเข้มข้น", "พลิกตอนจบให้คาดไม่ถึง", "เพิ่มมุกตลก", "เพิ่มปมรักสามเส้า", "ตัดให้กระชับ", "ทำให้สมจริงขึ้น"]
   },
   "home": {
     "title": "หมีแว่น การละคร",
@@ -367,6 +367,7 @@
   "phases": [
     {
       "id": "setup",
+      "title": "ข้อมูล",
       "form": [
         {
           "el": "box",
@@ -540,7 +541,7 @@
         },
         {
           "el": "group",
-          "label": "👤 ตัวละคร",
+          "label": "ตัวละคร",
           "icon": "group",
           "card": [
             {
@@ -596,7 +597,7 @@
         },
         {
           "el": "group",
-          "label": "🏞️ ฉาก",
+          "label": "ฉาก",
           "icon": "landscape",
           "collapsible": true,
           "summary": "สถานที่/ฉากหลัง",
@@ -652,7 +653,7 @@
         },
         {
           "el": "group",
-          "label": "📦 วัตถุ/พร็อพ",
+          "label": "วัตถุ/พร็อพ",
           "icon": "category",
           "collapsible": true,
           "summary": "สิ่งของในเรื่อง",
@@ -712,6 +713,8 @@
       "title": "สตอรี่บอร์ด + ถ่ายทำ (รวม)",
       "subtitle": "การ์ดเดียวต่อช็อต: สร้างภาพ → พอมีภาพ ส่วนวิดีโอ+บทพูดจะโผล่ (multi-state)",
       "bind": "shots",
+      "cardClass": "w-full",
+      "cardHeader": false,
       "form": [
         {
           "el": "dashboard",
@@ -721,185 +724,96 @@
       ],
       "card": [
         {
-          "el": "media-slot",
-          "src": "{item.slots.image}",
-          "aspect": "9:16"
-        },
-        {
-          "el": "ref-select",
-          "field": "char",
-          "coll": "characters",
-          "label": "ตัวละคร",
-          "icon": "person",
-          "empty": "ยังไม่มีตัวละคร"
-        },
-        {
-          "el": "ref-select",
-          "field": "scene",
-          "coll": "scenes",
-          "label": "ฉาก",
-          "icon": "landscape",
-          "empty": "ยังไม่มีฉาก"
-        },
-        {
-          "el": "ref-select",
-          "field": "object",
-          "coll": "objects",
-          "label": "วัตถุ",
-          "icon": "category",
-          "empty": "ยังไม่มีวัตถุ"
-        },
-        {
-          "el": "textarea",
-          "field": "imagePrompt",
-          "label": "พรอมต์ภาพ",
-          "maxLength": 300
-        },
-        {
-          "el": "row",
+          "el": "box",
+          "className": "flex flex-col sm:flex-row gap-3",
           "card": [
             {
-              "el": "dropdown",
-              "field": "cameraAngle",
-              "label": "มุมกล้อง",
-              "options": [
-                "wide shot",
-                "medium shot",
-                "close-up",
-                "over-the-shoulder",
-                "POV"
+              "el": "box",
+              "className": "relative w-full sm:w-[180px] shrink-0",
+              "card": [
+                { "el": "md", "value": { "op": "add", "a": "{index}", "b": 1 }, "className": "absolute top-1 left-1 z-10 bg-white text-black text-[13px] font-black rounded-lg px-2 py-0.5 leading-none" },
+                { "el": "media-slot", "src": "{item.slots.image}", "aspect": "9:16" }
               ]
             },
             {
-              "el": "dropdown",
-              "field": "mood",
-              "label": "อารมณ์",
-              "options": [
-                "happy",
-                "tense",
-                "sad",
-                "romantic",
-                "comedic",
-                "dramatic"
-              ]
-            }
-          ]
-        },
-        {
-          "el": "gen-button",
-          "op": "genImage",
-          "label": "สร้างภาพ",
-          "variant": "solid"
-        },
-        {
-          "el": "divider",
-          "when": "item.slots.image!="
-        },
-        {
-          "el": "note",
-          "tone": "success",
-          "icon": "movie",
-          "value": "ภาพพร้อม → ตั้งค่าวิดีโอ+บทพูดได้ (วิดีโอใช้ภาพเป็นเฟรมแรก)",
-          "when": "item.slots.image!="
-        },
-        {
-          "el": "media-slot",
-          "src": "{item.slots.video}",
-          "aspect": "9:16",
-          "when": "item.slots.image!="
-        },
-        {
-          "el": "textarea",
-          "field": "motion",
-          "label": "การเคลื่อนไหว/กล้อง",
-          "maxLength": 200,
-          "when": "item.slots.image!="
-        },
-        {
-          "el": "row",
-          "when": "item.slots.image!=",
-          "card": [
-            {
-              "el": "segmented",
-              "field": "duration",
-              "label": "ความยาว",
-              "options": [
+              "el": "box",
+              "className": "flex-1 min-w-0 flex flex-col gap-2",
+              "card": [
+                { "el": "ref-select", "field": "char", "coll": "characters", "label": "ตัวละคร", "icon": "person", "empty": "ยังไม่มีตัวละคร" },
+                { "el": "ref-select", "field": "scene", "coll": "scenes", "label": "ฉาก", "icon": "landscape", "empty": "ยังไม่มีฉาก" },
+                { "el": "ref-select", "field": "object", "coll": "objects", "label": "วัตถุ", "icon": "category", "empty": "ยังไม่มีวัตถุ" },
+                { "el": "textarea", "field": "imagePrompt", "label": "พรอมต์ภาพ", "maxLength": 300 },
                 {
-                  "value": "8",
-                  "label": "8 วิ"
-                },
-                {
-                  "value": "4",
-                  "label": "4 วิ",
-                  "disabled": true,
-                  "reason": "Ultra"
-                },
-                {
-                  "value": "6",
-                  "label": "6 วิ",
-                  "disabled": true,
-                  "reason": "Ultra"
+                  "el": "row",
+                  "card": [
+                    { "el": "dropdown", "field": "cameraAngle", "label": "มุมกล้อง", "options": ["wide shot", "medium shot", "close-up", "over-the-shoulder", "POV"] },
+                    { "el": "dropdown", "field": "mood", "label": "อารมณ์", "options": ["happy", "tense", "sad", "romantic", "comedic", "dramatic"] }
+                  ]
                 }
               ]
             },
             {
-              "el": "dropdown",
-              "field": "audioType",
-              "label": "เสียง",
-              "options": [
-                "dialogue",
-                "narration",
-                "sfx only",
-                "music"
+              "el": "box",
+              "className": "shrink-0 sm:w-[150px] flex flex-col justify-center gap-2",
+              "card": [
+                { "el": "gen-button", "op": "genImage", "label": "สร้างภาพ", "variant": "solid", "className": "w-full justify-center" }
               ]
             }
           ]
         },
+        { "el": "divider", "when": "item.slots.image!=" },
         {
-          "el": "child-list",
-          "childColl": "lines",
-          "childBy": "shot",
-          "label": "บทพูด (หลายคน)",
-          "placeholder": "เพิ่มบรรทัด",
+          "el": "box",
           "when": "item.slots.image!=",
+          "className": "flex flex-col sm:flex-row gap-3",
           "card": [
             {
-              "el": "dropdown",
-              "field": "speaker",
-              "label": "ผู้พูด",
-              "options": {
-                "coll": "characters",
-                "label": "name",
-                "value": "name"
-              }
+              "el": "box",
+              "className": "w-full sm:w-[180px] shrink-0",
+              "card": [
+                { "el": "media-slot", "src": "{item.slots.video}", "aspect": "9:16" }
+              ]
             },
             {
-              "el": "input",
-              "field": "text",
-              "placeholder": "พูดว่า..."
-            }
-          ]
-        },
-        {
-          "el": "row",
-          "when": "item.slots.image!=",
-          "card": [
-            {
-              "el": "gen-button",
-              "op": "genVideo",
-              "label": "สร้างวิดีโอ",
-              "variant": "solid"
+              "el": "box",
+              "className": "flex-1 min-w-0 flex flex-col gap-2",
+              "card": [
+                { "el": "note", "tone": "success", "icon": "movie", "value": "ภาพพร้อม → ตั้งค่าวิดีโอ+บทพูดได้ (วิดีโอใช้ภาพเป็นเฟรมแรก)" },
+                { "el": "textarea", "field": "motion", "label": "การเคลื่อนไหว/กล้อง", "maxLength": 200 },
+                {
+                  "el": "row",
+                  "card": [
+                    { "el": "segmented", "field": "duration", "label": "ความยาว", "options": [ { "value": "8", "label": "8 วิ" }, { "value": "4", "label": "4 วิ", "disabled": true, "reason": "Ultra" }, { "value": "6", "label": "6 วิ", "disabled": true, "reason": "Ultra" } ] },
+                    { "el": "dropdown", "field": "audioType", "label": "เสียง", "options": ["dialogue", "narration", "sfx only", "music"] }
+                  ]
+                },
+                {
+                  "el": "child-list",
+                  "childColl": "lines",
+                  "childBy": "shot",
+                  "label": "บทพูด (หลายคน)",
+                  "placeholder": "เพิ่มบรรทัด",
+                  "card": [
+                    { "el": "dropdown", "field": "speaker", "label": "ผู้พูด", "options": { "coll": "characters", "label": "name", "value": "name" } },
+                    { "el": "input", "field": "text", "placeholder": "พูดว่า..." }
+                  ]
+                }
+              ]
             },
             {
-              "el": "download-button",
-              "to": "{item.slots.video}",
-              "iconOnly": true,
-              "when": "item.slots.video!="
-            },
-            {
-              "el": "copy-button",
-              "value": "{item.imagePrompt}",
-              "iconOnly": true
+              "el": "box",
+              "className": "shrink-0 sm:w-[150px] flex flex-col justify-center gap-2",
+              "card": [
+                { "el": "gen-button", "op": "genVideo", "label": "สร้างวิดีโอ", "variant": "solid", "className": "w-full justify-center" },
+                {
+                  "el": "row",
+                  "className": "justify-center",
+                  "card": [
+                    { "el": "download-button", "to": "{item.slots.video}", "iconOnly": true, "when": "item.slots.video!=" },
+                    { "el": "copy-button", "value": "{item.imagePrompt}", "iconOnly": true }
+                  ]
+                }
+              ]
             }
           ]
         }
