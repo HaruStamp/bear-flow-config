@@ -879,6 +879,15 @@
       "subtitle": "ปก + แคปชั่น + ตัดต่อรวมเป็นวิดีโอ",
       "form": [
         {
+          "el": "section",
+          "icon": "movie",
+          "label": "ตัวอย่างคลิป (ทั้งเรื่อง)",
+          "summary": "เล่นทุกช็อตต่อกัน",
+          "card": [
+            { "el": "video-reel", "coll": "shots", "slot": "video", "aspect": "9:16", "empty": "ยังไม่มีคลิป — สร้างวิดีโอในหน้าถ่ายทำก่อน" }
+          ]
+        },
+        {
           "el": "box",
           "className": "grid grid-cols-1 md:grid-cols-2 gap-3",
           "card": [
