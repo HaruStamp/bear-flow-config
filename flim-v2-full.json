@@ -337,6 +337,9 @@
       "op": "architect"
     },
     {
+      "checkpoint": "review"
+    },
+    {
       "opGroup": [
         "genCharSheet",
         "genSceneRef",
@@ -525,6 +528,51 @@
                 { "el": "run-button", "label": "สร้างบทละคร", "icon": "auto_awesome", "textSize": "text-xl", "className": "w-full h-[66px] justify-center rounded-[22px]" }
               ]
             }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "review",
+      "title": "ตรวจบท",
+      "subtitle": "อ่าน/แก้บทแต่ละตอนก่อนเริ่มผลิตภาพ — ยืนยันแล้วค่อยไปต่อ",
+      "form": [
+        {
+          "el": "repeat",
+          "coll": "episodes",
+          "empty": "ยังไม่มีตอน — กดสร้างบทก่อน",
+          "card": [
+            {
+              "el": "card",
+              "className": "gap-3 mb-3",
+              "card": [
+                {
+                  "el": "row",
+                  "card": [
+                    { "el": "box", "className": "flex-1 min-w-0", "card": [ { "el": "input", "field": "title", "placeholder": "ชื่อตอน", "className": "font-bold text-[16px]" } ] },
+                    { "el": "magic-edit", "op": "refineItem", "label": "แก้บทตอนนี้", "variant": "outline", "size": "sm" }
+                  ]
+                },
+                { "el": "textarea", "field": "synopsis", "label": "เรื่องย่อ", "maxLength": 500 },
+                { "el": "textarea", "field": "cliffhanger", "label": "ปิดท้าย (ปมไปตอนหน้า)", "maxLength": 200 },
+                {
+                  "el": "accordion-group",
+                  "childColl": "shots",
+                  "childBy": "ep",
+                  "card": [
+                    { "el": "md", "value": "**{item.mood}** · {item.cameraAngle}\n{item.imagePrompt}", "className": "text-xs border-t border-[var(--ev-border)] pt-2 mt-1" }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "el": "row",
+          "className": "mt-2",
+          "card": [
+            { "el": "magic-edit", "op": "extend", "label": "เพิ่มตอนใหม่", "variant": "outline", "icon": "add" },
+            { "el": "magic-edit", "op": "refineRoot", "label": "แก้บททั้งเรื่อง", "variant": "outline" }
           ]
         }
       ]
