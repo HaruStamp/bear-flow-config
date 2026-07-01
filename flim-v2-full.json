@@ -544,33 +544,24 @@
       "subtitle": "อ่าน/แก้บทแต่ละตอนก่อนเริ่มผลิตภาพ — ยืนยันแล้วค่อยไปต่อ",
       "form": [
         {
-          "el": "repeat",
+          "el": "accordion",
           "coll": "episodes",
+          "childColl": "shots",
+          "childBy": "ep",
           "empty": "ยังไม่มีตอน — กดสร้างบทก่อน",
-          "card": [
+          "parentCard": [
             {
-              "el": "card",
-              "className": "gap-3 mb-3",
+              "el": "row",
               "card": [
-                {
-                  "el": "row",
-                  "card": [
-                    { "el": "box", "className": "flex-1 min-w-0", "card": [ { "el": "input", "field": "title", "placeholder": "ชื่อตอน", "className": "font-bold text-[16px]" } ] },
-                    { "el": "magic-edit", "op": "refineItem", "label": "แก้บทตอนนี้", "variant": "outline", "size": "sm" }
-                  ]
-                },
-                { "el": "textarea", "field": "synopsis", "label": "เรื่องย่อ", "maxLength": 500 },
-                { "el": "textarea", "field": "cliffhanger", "label": "ปิดท้าย (ปมไปตอนหน้า)", "maxLength": 200 },
-                {
-                  "el": "accordion-group",
-                  "childColl": "shots",
-                  "childBy": "ep",
-                  "card": [
-                    { "el": "md", "value": "**{item.mood}** · {item.cameraAngle}\n{item.imagePrompt}", "className": "text-xs border-t border-[var(--ev-border)] pt-2 mt-1" }
-                  ]
-                }
+                { "el": "box", "className": "flex-1 min-w-0", "card": [ { "el": "input", "field": "title", "placeholder": "ชื่อตอน", "className": "font-bold text-[15px]" } ] },
+                { "el": "magic-edit", "op": "refineItem", "label": "แก้บทตอนนี้", "variant": "outline", "size": "sm" }
               ]
-            }
+            },
+            { "el": "textarea", "field": "synopsis", "label": "เรื่องย่อ", "maxLength": 500 },
+            { "el": "textarea", "field": "cliffhanger", "label": "ปิดท้าย (ปมไปตอนหน้า)", "maxLength": 200 }
+          ],
+          "card": [
+            { "el": "md", "value": "**{item.mood}** · {item.cameraAngle}\n{item.imagePrompt}", "className": "text-xs" }
           ]
         },
         {
