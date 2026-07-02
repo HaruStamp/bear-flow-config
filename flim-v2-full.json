@@ -2,6 +2,7 @@
   "schemaVersion": 1,
   "title": "หมีแว่น การละคร",
   "icon": "pets",
+  "app": { "id": "flim-v2" },
   "persistBar": true,
   "theme": {
     "toggle": true,
@@ -14,7 +15,8 @@
       "--ev-dim": "rgba(255,255,255,0.55)",
       "--ev-border": "rgba(255,255,255,0.10)",
       "--ev-accent": "#f97316",
-      "--ev-accent-fg": "#ffffff"
+      "--ev-accent-fg": "#ffffff",
+      "--ev-modal": "#1a1a1a"
     },
     "modes": {
       "light": {
@@ -25,7 +27,8 @@
         "--ev-dim": "rgba(26,20,16,0.55)",
         "--ev-border": "rgba(0,0,0,0.12)",
         "--ev-accent": "#f97316",
-        "--ev-accent-fg": "#ffffff"
+        "--ev-accent-fg": "#ffffff",
+        "--ev-modal": "#fffdf9"
       }
     }
   },
@@ -49,7 +52,8 @@
     "leafParentRef": "ep",
     "assets": ["characters", "scenes", "objects"],
     "architect": "architect",
-    "magicChips": ["เพิ่มความเข้มข้น", "พลิกตอนจบให้คาดไม่ถึง", "เพิ่มมุกตลก", "เพิ่มปมรักสามเส้า", "ตัดให้กระชับ", "ทำให้สมจริงขึ้น"]
+    "magic": { "titleExtend": "เพิ่มตอนใหม่ (AI)", "titleEdit": "แก้บทด้วย AI", "placeholderExtend": "ตอนใหม่เกี่ยวกับอะไร (เว้นว่าง = ต่อยอดเอง)...", "placeholderEdit": "อยากปรับบทตอนนี้ยังไง...", "ctaExtend": "สร้างตอน", "ctaEdit": "แก้ไขบท", "chips": ["เพิ่มความเข้มข้น", "พลิกตอนจบให้คาดไม่ถึง", "เพิ่มมุกตลก", "เพิ่มปมรักสามเส้า", "ตัดให้กระชับ", "ทำให้สมจริงขึ้น"] },
+    "suggest": { "busy": "พี่หมีกำลังคิดไอเดีย...", "emptyTitle": "ให้พี่หมีคิดไอเดียพล็อตให้ด้วย", "emptyHint": "เลือกแนวเรื่องด้านบน แล้วกดปุ่มนี้ — พี่หมีจะคิดไอเดียพล็อตมาให้เลือก", "cta": "สุ่มไอเดียพล็อต", "regen": "สุ่มอีกครั้ง", "close": "ปิด" }
   },
   "home": {
     "title": "หมีแว่น การละคร",
@@ -75,14 +79,17 @@
   },
   "auto": {
     "enabled": true,
-    "defaultOn": false
+    "defaultOn": false,
+    "scopeColl": "episodes"
   },
+  "editor": { "sourceColl": "shots", "map": { "image": "imagePrompt", "imageFallback": "prompt", "motion": "motion", "dialogue": "dialogue", "duration": "duration", "title": "title", "name": "name" }, "defaultDuration": 8, "defaultAspect": "9:16" },
   "settings": {
     "title": "ตั้งค่าการผลิต",
     "form": [
       {
         "el": "auto-panel",
         "item": "episodes",
+        "labels": { "perItem": "ทีละตอน", "all": "ทั้งเรื่อง", "scope": "ขอบเขตการผลิต", "off": "ปิดอยู่ — สร้างเองทีละขั้น" },
         "label": "ผลิตอัตโนมัติ",
         "icon": "bolt",
         "placeholder": "รันทุกขั้น (บท → อ้างอิง → ภาพ → วิดีโอ) ให้อัตโนมัติจนจบ",
@@ -370,7 +377,7 @@
       "over": "characters",
       "out": "sheet",
       "model": "{values.imageModel}",
-      "aspectRatio": "1:1",
+      "aspectRatio": "9:16",
       "prompt": "character reference sheet, full body turnaround, {item.name}. Appearance: {item.appearance}. Personality: {item.personality}. Style: {values.style}. clean neutral background."
     },
     {
@@ -461,7 +468,8 @@
   ],
   "stages": [
     {
-      "op": "structVars"
+      "op": "structVars",
+      "busyScreen": true
     },
     {
       "op": "structure"
@@ -565,6 +573,7 @@
                       "el": "grid-select",
                       "field": "mode",
                       "cols": 2,
+                      "contained": true,
                       "options": [
                         { "value": "create", "label": "แต่งเรื่องให้", "icon": "auto_fix_high", "desc": "มีแค่ไอเดีย — AI ออกแบบเรื่อง/ตัวละคร/หักมุม ต่อยอดให้" },
                         { "value": "follow", "label": "ทำตามบทเป๊ะ", "icon": "menu_book", "desc": "มีบท/นิยายแล้ว — AI ทำตามนั้น แค่ลงรายละเอียด ไม่แต่งใหม่" }
@@ -576,7 +585,7 @@
                   "el": "section",
                   "icon": "menu_book",
                   "label": "พล็อตเรื่อง / เนื้อเรื่องหลัก",
-                  "headerRight": { "el": "ai-suggest", "field": "plot", "count": 5, "label": "สุ่มพล็อต", "icon": "auto_fix_high", "variant": "outline", "size": "sm", "className": "rounded-full", "genreField": "genre", "apply": { "plot": "body", "genre": "genres" }, "prompt": "เสนอไอเดียพล็อตละครสั้นแนวตั้ง 5 แบบ หลากหลาย แต่ละอันมี hook สะดุดใจ ปมขัดแย้งชัด จุดหักมุม · title = ชื่อเรื่องสั้นๆ · body = พล็อต 2-3 ประโยค" },
+                  "headerRight": { "el": "ai-suggest", "field": "plot", "count": 5, "label": "สุ่มพล็อต", "icon": "auto_fix_high", "variant": "outline-accent", "size": "sm", "className": "rounded-full", "genreField": "genre", "apply": { "plot": "body", "genre": "genres" }, "preGen": true, "modalClass": "max-w-5xl h-[90vh]", "steer": { "el": "chips", "field": "genre", "label": "เลือกแนวเรื่อง", "chipClass": "rounded-2xl px-4 py-2.5 text-[14px] font-bold", "check": true, "options": ["ตลก", "ดราม่า", "โรแมนติก", "แอคชั่น", "ไซไฟ", "แฟนตาซี", "สยองขวัญ", "ล้างแค้น", "คุณธรรม", "ชีวิตประจำวัน", "สืบสวน", "อาชญากรรม", "ลึกลับ", "สารคดี", "ประวัติศาสตร์", "การศึกษา", "สาระน่ารู้", "How-to", "เล่าเรื่อง", "ตำนาน", "นิทาน", "What if", "ธรรมะ", "ละครสัตว์"] }, "prompt": "เสนอไอเดียพล็อตละครสั้นแนวตั้ง 5 แบบ หลากหลาย แต่ละอันมี hook สะดุดใจ ปมขัดแย้งชัด จุดหักมุม · title = ชื่อเรื่องสั้นๆ · body = พล็อต 2-3 ประโยค" },
                   "card": [
                     { "el": "textarea", "field": "plot", "maxLength": 1000, "placeholder": "พิมพ์พล็อตของคุณ หรือกด 'สุ่มพล็อต' ให้ AI คิดให้...", "className": "min-h-[120px] rounded-2xl px-4 py-3 text-[15px]" }
                   ]
@@ -605,9 +614,33 @@
                       "el": "dropdown",
                       "field": "style",
                       "options": [
-                        { "value": "cinematic warm tone, soft cinematic light, Thai drama", "label": "ซีเนมาติก (ละครไทย)" },
-                        { "value": "anime cel-shaded, vibrant, expressive", "label": "อนิเมะ" },
-                        { "value": "photorealistic, natural lighting, detailed", "label": "เสมือนจริง" }
+                        { "value": "photorealistic, natural lighting, detailed", "label": "ภาพยนตร์สมจริง", "icon": "movie", "desc": "หนังฟิล์มจริง แสงธรรมชาติ" },
+                        { "value": "premium prestige streaming series, polished cinematic color grading, teal and orange tones, high production value, sleek international film look, high dynamic range", "label": "ซีรีส์สากล", "icon": "stars", "desc": "ขัดเกลา เกรดสีหรู ดูแพงอินเตอร์" },
+                        { "value": "cinematic warm tone, soft cinematic light, Thai drama", "label": "ละครไทย", "icon": "tv", "desc": "สีสด คอนทราสต์จัด" },
+                        { "value": "Thai historical period drama, warm golden ornate tones, traditional Siamese palaces and temples, soft solemn lighting, rich classical Thai palette", "label": "ไทยย้อนยุค", "icon": "temple_buddhist", "desc": "โทนทองอบอุ่น ขรึมขลัง" },
+                        { "value": "Korean drama aesthetic, clean modern cinematography, soft glowing light, pastel tones, crisp polished high-key, low contrast romantic glow", "label": "ซีรีส์เกาหลี", "icon": "favorite", "desc": "ใส สว่าง พาสเทล" },
+                        { "value": "Japanese drama aesthetic, naturalistic understated cinematography, soft diffused natural light, muted low-saturation gentle tones, calm delicate texture", "label": "ซีรีส์ญี่ปุ่น", "icon": "park", "desc": "สีนุ่มจาง แสงธรรมชาติ เรียบสงบ" },
+                        { "value": "modern Chinese drama aesthetic, clean crisp cinematography, cool elegant tones, glossy high-budget polish, sleek cinematic", "label": "ซีรีส์จีน", "icon": "apartment", "desc": "คลีน คมชัด เย็นหรู" },
+                        { "value": "modern realistic Chinese historical costume drama (C-drama), photorealistic cinematic film still, crisp sharp focus, natural soft cinematic lighting, authentic Song and Ming-era hanfu with intricate embroidery, ornate palace and classical gardens, true-to-life skin and silk texture, high production value, real actors — NOT a painting, not oil-painted, not xianxia fantasy, not dreamy soft-focus", "label": "จีนย้อนยุค", "icon": "temple_hindu", "desc": "เรืองแสงนุ่ม ฟุ้งเหมือนฝัน" },
+                        { "value": "vintage retro film aesthetic, warm sepia tones, faded nostalgic color grade, heavy film grain, soft hazy classic look", "label": "วินเทจย้อนยุค", "icon": "filter_vintage", "desc": "ซีเปียอุ่น ฟิล์มเก่า" },
+                        { "value": "medieval European period film, desaturated earthy cold tones, candlelight and torchlight, gritty atmospheric, epic painterly historical realism", "label": "ยุคกลางยุโรป", "icon": "castle", "desc": "โทนดินหม่น เย็นดิบ แสงคบไฟ" },
+                        { "value": "ultra realistic high-end CGI, photorealistic VFX render, 8k resolution, intricate lifelike textures, flawless detail", "label": "CGI สมจริง", "icon": "deblur", "desc": "คมเกินจริง เท็กซ์เจอร์ละเอียด" },
+                        { "value": "raw found-footage handheld video, shaky amateur camcorder look, naturalistic unpolished, documentary realism, candid authentic", "label": "ฟุตเทจวิดีโอดิบ", "icon": "videocam", "desc": "ภาพสั่นดิบ เหมือนถ่ายเอง" },
+                        { "value": "dark crime noir aesthetic, low-key moody lighting, deep shadows, desaturated cold tones, cinematic suspense", "label": "สืบสวนภาพมืด", "icon": "search", "desc": "มืด เงาเข้ม หม่นเย็น" },
+                        { "value": "dark horror aesthetic, eerie unsettling, desaturated grim cold colors, cinematic suspense", "label": "สยองขวัญ", "icon": "dark_mode", "desc": "ซีดหม่น เย็นเยียบ หลอน" },
+                        { "value": "classic black and white film, high-contrast monochrome, dramatic chiaroscuro shadows, timeless cinematic", "label": "ขาวดำคลาสสิก", "icon": "contrast", "desc": "ขาวดำ คอนทราสต์จัด" },
+                        { "value": "editorial cinematic photograph of a real premium East-Asian K-pop idol in an elaborate over-the-top fantasy costume, fair East-Asian skin with real matte natural texture and visible pores, epic magical atmosphere with restrained glowing magical light and floating particles, fantasy hair colors allowed, dramatic cinematic fantasy lighting, shot on 85mm f1.4 shallow depth of field, rich vibrant filmic color grade, subtle film grain — a real photographed person in fantasy costume, NOT a 3D render, NOT CGI, NOT a game character, NOT anime, NOT oil painting", "label": "แฟนตาซี", "icon": "auto_fix_high", "desc": "แฟนตาซีสมจริง ชุดอลังการ เวทมนตร์" },
+                        { "value": "editorial cinematic photograph of a real premium East-Asian k-pop idol, gothic dark fantasy vampire aesthetic, pale fair East-Asian skin with real matte natural texture and visible pores, candlelit moonlit moody atmosphere, ornate baroque-Victorian gothic costume (gold embroidery, lace, crosses, chains) or gothic lolita gown, fantasy elements allowed (faint crimson or pale-violet glowing eyes, dark aura), shot on 85mm f1.4 shallow depth of field and creamy bokeh, soft key light with rim separation, filmic desaturated rich color grade, subtle film grain — a real photographed person, NOT a 3D render, NOT CGI, NOT anime", "label": "กอธิคแฟนตาซี", "icon": "nightlight", "desc": "มืดขลัง แวมไพร์ ปราสาทกอธิค" },
+                        { "value": "GTA and The Sims style 3D video game, semi-realistic game graphics, modern life-simulation aesthetic, stylized realistic render, video-game cinematic", "label": "เกม 3D", "icon": "sports_esports", "desc": "ภาพแบบเกม 3D กึ่งสมจริง" },
+                        { "value": "Pixar Disney style 3D animation, smooth subsurface shading, soft rounded shapes, vibrant warm color palette", "label": "การ์ตูน 3D", "icon": "3d_rotation", "desc": "นุ่มมน สีสด แบบ Pixar" },
+                        { "value": "anime cel-shaded, vibrant, expressive", "label": "อนิเมะญี่ปุ่น", "icon": "animation", "desc": "เส้นคม เซลล์เชด" },
+                        { "value": "Korean webtoon manhwa digital art style, clean smooth lines, soft gradient shading, polished glossy digital coloring", "label": "เว็บตูนเกาหลี", "icon": "photo_album", "desc": "เส้นเนียน สีไล่นุ่ม" },
+                        { "value": "classic hand-drawn cartoon style, bold thick outlines, flat colors, storybook illustration quality", "label": "การ์ตูนวาดมือ", "icon": "brush", "desc": "เส้นหนา สีแบน" },
+                        { "value": "cyberpunk neon aesthetic, glowing pink and blue neon, dark rainy futuristic city, high-tech reflections", "label": "ไซเบอร์พังค์", "icon": "bolt", "desc": "นีออน เมืองอนาคต" },
+                        { "value": "authentic documentary cinematography, natural available light, realistic candid footage, true-to-life colors, broadcast documentary realism, photojournalistic, not staged", "label": "สารคดีจริง", "icon": "public", "desc": "ภาพจริงโทนสารคดี แสงธรรมชาติ" },
+                        { "value": "vintage archival photograph, aged sepia and faded tones, old historical film footage look, grainy nostalgic documentary, antique photo texture", "label": "ภาพจดหมายเหตุ", "icon": "history_edu", "desc": "ภาพเก่าซีเปีย ฟิล์มประวัติศาสตร์" },
+                        { "value": "warm childrens storybook illustration, soft hand-painted artwork, gentle whimsical colors, picture-book art style, cozy illustrative", "label": "หนังสือนิทานภาพ", "icon": "auto_stories", "desc": "ภาพประกอบนิทาน อบอุ่นละมุน" },
+                        { "value": "clean modern flat illustration, simple educational infographic style, bright clear colors, friendly explanatory vector art, minimal clean shapes", "label": "อินโฟกราฟิก/สื่อการเรียน", "icon": "school", "desc": "ภาพประกอบสะอาด สอนเข้าใจง่าย" }
                       ]
                     }
                   ]
@@ -620,6 +653,7 @@
                     {
                       "el": "segmented",
                       "field": "narration",
+                      "variant": "tab",
                       "options": [
                         { "value": "dialogue", "label": "บทสนทนา", "icon": "forum" },
                         { "value": "narration", "label": "เสียงบรรยาย", "icon": "record_voice_over" },
@@ -638,6 +672,7 @@
                               "el": "segmented",
                               "field": "dialogueLanguage",
                               "label": "ภาษาบทพูด",
+                              "variant": "tab",
                               "options": [
                                 { "value": "th", "label": "ไทย" },
                                 { "value": "en", "label": "English" }
@@ -652,7 +687,25 @@
                               "el": "dropdown",
                               "field": "accent",
                               "label": "สำเนียงหลัก",
-                              "options": ["กลาง", "อีสาน", "เหนือ", "ใต้", "กรุงเทพ"]
+                              "when": "dialogueLanguage!=en",
+                              "options": [
+                                { "value": "กลาง", "label": "มาตรฐาน (สุภาพ)" },
+                                { "value": "อีสาน", "label": "อีสาน" },
+                                { "value": "เหนือ", "label": "เหนือ (คำเมือง)" },
+                                { "value": "ใต้", "label": "ใต้" },
+                                { "value": "กรุงเทพ", "label": "กรุงเทพ/วัยรุ่น" },
+                                { "value": "ดุดัน", "label": "ดุดัน/ปากแสบ (สะใจ)" },
+                                { "value": "หยาบคาย", "label": "หยาบคาย" }
+                              ]
+                            },
+                            {
+                              "el": "dropdown",
+                              "field": "accent",
+                              "label": "สำเนียงหลัก",
+                              "when": "dialogueLanguage=en",
+                              "options": [
+                                { "value": "กลาง", "label": "Standard" }
+                              ]
                             }
                           ]
                         }
@@ -665,7 +718,7 @@
                   "className": "grid grid-cols-1 sm:grid-cols-2 gap-5",
                   "card": [
                     { "el": "column", "card": [ { "el": "slider", "field": "epCount", "label": "จำนวนตอน", "min": 1, "max": 10, "unit": "ตอน" } ] },
-                    { "el": "column", "card": [ { "el": "slider", "field": "shotsPerEp", "label": "ช็อตต่อตอน", "min": 5, "max": 30, "unit": "ช็อต" } ] }
+                    { "el": "column", "card": [ { "el": "slider", "field": "shotsPerEp", "label": "ช็อตต่อตอน", "min": 5, "max": 30, "valueLabel": { "op": "concat", "parts": ["{shotsPerEp}", " ช็อต (", { "op": "mul", "a": "{shotsPerEp}", "b": 8 }, " วินาที)"] } } ] }
                   ]
                 },
                 {
@@ -1192,6 +1245,9 @@
     }
   ],
   "brain": {
+    "extend": { "buildPrompt": "\n    คุณเป็น Showrunner ต่อยอดละครสั้นแนวตั้งที่มีอยู่แล้ว — เขียน \"ตอนใหม่ 1 ตอน\" (EP{nextNum}) ต่อจากของเดิม\n\n    พล็อตรวม: {plotSlice}\n    ตัวละครที่มี: {charNames}\n    ฉากที่มี: {sceneNames}\n    สิ่งของที่มี: {objectNames}\n    {epLines}\n    {briefLine}\n\n    กฎ:\n    1. EP{nextNum} ต้องต่อยอดจากปม (cliffhanger) ของตอนสุดท้ายแบบเดินหน้า ห้ามเล่าซ้ำเหตุการณ์เดิม\n    2. ★ ตอนสุดท้ายเดิม (EP{lastEpNum}) เคยเป็นตอนจบ → ตอนนี้มีตอนต่อแล้ว ให้แก้ cliffhanger ของมันจาก \"บทสรุป\" เป็น \"ปมค้างที่พาไป EP{nextNum}\" (คืนค่าใน prevCliffhanger)\n    3. ใช้ตัวละคร/ฉากเดิมเป็นหลัก — ถ้าจำเป็นต้องมีตัวละคร/ฉากใหม่ ใส่ใน newCharacters/newScenes (ภาษาไทย: description + prompt(รูปลักษณ์) + voice + lookTag) ถ้าไม่ต้องใส่เป็น []\n    4. EP{nextNum}: title(ภาษา{titleLang}) + synopsis(ไทย 2-3 ประโยค) + cliffhanger(ไทย ปมไปตอนถัดไป) + location(ตรงชื่อฉากที่มี/ฉากใหม่)\n    5. ดูรายการ \"ปมค้าง/เบาะแสทุกตอน\" ด้านบน — ตอนใหม่ต้องสานต่อหรือคืบหน้าปมที่ยังค้างอย่างน้อย 1 ปม และห้ามขัดแย้งหรือลืมปมที่เปิดไว้ตอนก่อนๆ · ระบุ threadsOpened[] (ปมใหม่ที่ตอนนี้เปิด) และ threadsResolved[] (ปมเดิมที่ตอนนี้คลี่คลาย — ★คัดลอกข้อความปมจากรายการปมค้างด้านบนมาให้ตรงเป๊ะคำต่อคำ ห้ามเรียบเรียงใหม่)\n\n    ตอบ JSON เท่านั้น (ห้าม markdown):\n    {\"prevCliffhanger\":\"ปมใหม่ของ EP{lastEpNum}\",\"newCharacters\":[],\"newScenes\":[],\"episode\":{\"episodeNumber\":{nextNum},\"title\":\"\",\"synopsis\":\"\",\"cliffhanger\":\"\",\"location\":\"\",\"threadsOpened\":[\"ปมที่ตอนนี้เปิด\"],\"threadsResolved\":[\"ปมเดิมที่ตอนนี้เฉลย\"]}}\n  ", "sys": "Master Thai vertical-drama showrunner extending an existing series. Continue the arc forward, do not recap. Output JSON only." },
+    "caption": { "prompt": "แนวเรื่อง: {genre}\nชื่อตอน: {title}\nเรื่องย่อ: {synopsis}\n\nเขียนแคปชั่นโพสต์โซเชียล (Facebook/TikTok) ภาษาไทยสำหรับละครสั้นแนวตั้งตอนนี้ ตอบเฉพาะแคปชั่น:", "sys": "คุณเป็นนักเขียนแคปชั่นโซเชียลมืออาชีพ เขียนแคปชั่นไทยกระชับ มี hook เปิดสะดุด + อารมณ์ดราม่า + ชวนดูคลิป + 3-5 แฮชแท็กท้าย ห้ามสปอยล์ตอนจบ ความยาว 2-4 บรรทัด" },
+    "refineRoot": { "prompt": "โครงเรื่องปัจจุบัน:\n{ctxLine}\n\nคำสั่งแก้บททั้งเรื่อง: {instruction}\n\nปรับปรุงโครงตามคำสั่ง — ★คงชื่อตัวละครเดิม + จำนวนตอนเดิมเป๊ะ (ห้ามเพิ่ม/ลบ/เปลี่ยนชื่อตัวละคร · ห้ามเปลี่ยนจำนวนตอน · ไม่แตะช็อต). ตอบ JSON เท่านั้น: {\"characters\":[{\"name\":\"ชื่อเดิมเป๊ะ\",\"personality\":\"...\",\"appearance\":\"...\"}],\"episodes\":[{\"title\":\"...\",\"synopsis\":\"...\"}]}" },
     "styleKeywords": {
       "Cinematic Photoreal": "editorial cinematic photograph of real premium East-Asian actors (Korean/Chinese/Thai top-celebrity faces), shot on 85mm lens with shallow depth of field and creamy bokeh, soft directional key light with subtle rim separation, controlled deep-but-detailed shadows, filmic slightly-desaturated rich color grade, fair light East-Asian skin tone with real matte natural texture and visible pores (never airbrushed or plastic-CGI), subtle 35mm film grain, premium prime-time streaming-drama cinematography",
       "Prestige International": "premium prestige streaming series, polished cinematic color grading, teal and orange tones, high production value, sleek international film look, high dynamic range",
